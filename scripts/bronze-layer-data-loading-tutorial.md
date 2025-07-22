@@ -21,14 +21,19 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 
 1. Open the `.bat` file and update:
    - `PGUSER`, `PGPASSWORD`, `PGDB`
-   - Ensure the PostgreSQL `bin` path is correct
+   - Ensure the PostgreSQL `bin` file & `load_all_data.sql` file path are correct
 2. Double-click the `load_all_data.bat` file
 3. Wait for the terminal to show:
 ```bat
-  COPY 18494
-  COPY 397
+=====================================================
+ Starting Data Load into Bronze Layer...
+=====================================================
+TRUNCATE TABLE
+COPY 18494
+TRUNCATE TABLE
+COPY 397
   ...
-  Load completed.
+  Load completed successfully.
   Press any key to continue . . .
 ```
 5. Your data is now ready for querying or BI tools.
