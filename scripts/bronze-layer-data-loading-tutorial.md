@@ -1,6 +1,6 @@
-# ⚙️ Data Loading Tutorial
+# ⚙️ Bronze Layer Data Loading Tutorial
 
-This guide walks you through the setup and use of the automated `.bat` and `.sql` data loading system for your PostgreSQL data warehouse.
+This guide walks you through the setup and use of the automated `.bat` and `.sql` data loading to the bronze layer for your PostgreSQL data warehouse.
 
 ## 🗂 Prerequisites
 
