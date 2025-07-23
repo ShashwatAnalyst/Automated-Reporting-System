@@ -22,11 +22,15 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 
 ## 📝 Files Involved
 
+<div align = "center">
+  
 | File | Purpose |
 |------|---------|
 | `load_all_data.sql` | Contains `TRUNCATE` and `\COPY` commands for all target tables |
 | `load_all_data.bat` | Runs the SQL file using `psql` CLI with proper environment setup |
 | `.csv` files | Source data to be loaded into staging tables |
+
+</div>
 
 ## 🚀 How to Use
 
