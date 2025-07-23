@@ -9,6 +9,17 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 - CSV source files stored in the `datasets/` folder
 - Your database credentials (username, password)
 
+
+## 📊 Bronze Layer Architecture
+
+<p align="center">
+  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/bronze-layer-diagram.png.png?raw=true" alt="Bronze Layer Structure" width="500"/>
+</p>
+
+
+> This diagram shows how raw source data (CRM and ERP CSVs) are mapped directly into PostgreSQL tables inside the `bronze` schema using automation.
+
+
 ## 📝 Files Involved
 
 | File | Purpose |
