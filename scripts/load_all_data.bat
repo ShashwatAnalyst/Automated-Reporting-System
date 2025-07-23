@@ -1,6 +1,16 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+:: ========================================================
+::  Bronze Layer Automation Script (Batch Executable)
+:: --------------------------------------------------------
+:: Purpose:
+:: This script triggers the SQL data loading process using
+:: psql CLI. It loads CSVs into the Bronze Layer of the
+:: PostgreSQL data warehouse using a truncate-and-load 
+:: strategy. Ideal for repeatable batch ETL in local setups.
+:: ========================================================
+
 :: Set PostgreSQL credentials
 set PGUSER=postgres
 set PGPASSWORD=password
