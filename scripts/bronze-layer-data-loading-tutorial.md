@@ -60,5 +60,5 @@ COPY 397
 
 ---
 
-✅ That's it! You now have a repeatable, automated way to load data for your BI pipeline.
+✅ That's it! You now have a repeatable, automated way to load data to the database.
 
