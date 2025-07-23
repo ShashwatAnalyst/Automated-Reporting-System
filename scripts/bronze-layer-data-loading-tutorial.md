@@ -47,7 +47,7 @@ COPY 397
   Load completed successfully.
   Press any key to continue . . .
 ```
-5. Your data is now ready for querying or BI tools.
+5. Your data is now loaded to the bronze layer.
 
 ## 💡 Notes
 
