@@ -60,5 +60,5 @@ COPY 397
 
 ---
 
-✅ That's it! You now have a repeatable, automated way to load data to the database.
+✅ That's it! You now have a repeatable, automated way to load raw data to the database.
 
