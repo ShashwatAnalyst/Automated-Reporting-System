@@ -1,3 +1,15 @@
+
+-- ========================================================
+--  Bronze Layer Loading Script (Truncate and Reload)
+-- --------------------------------------------------------
+-- Purpose:
+-- This script loads raw CSV data from the source folders
+-- into the Bronze Layer of the PostgreSQL data warehouse.
+-- It uses a truncate-and-load strategy to ensure clean,
+-- fresh data for each run — ideal for batch ETL pipelines.
+-- =========================================================
+
+
 TRUNCATE TABLE bronze.crm_cust_info;
 \COPY bronze.crm_cust_info FROM 'C:/Users/fusio/Desktop/Data_warehouse_project/SQL-Data-Warehouse-Project/datasets/source_crm/cust_info.csv' WITH (FORMAT csv, HEADER true);
 
