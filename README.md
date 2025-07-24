@@ -36,14 +36,11 @@ This project involves:
 
 ## 🛠️ Important Links & Tools:
 
-Everything is for Free!
 - **[Datasets](./datasets/):** Access to the project dataset (CSV files).
 - **[PostgreSQL Server](https://www.postgresql.org/download/):** Lightweight server for hosting your SQL database.
 - **[PG Admin tool](https://www.pgadmin.org/download/):** GUI for managing and interacting with PostgreSQL databases.
 - **[Git Repository](https://github.com/):** Set up a GitHub account and repo to manage, version and collaborate on your code efficiently.
 - **[DrawIO](https://www.drawio.com/):** Design data architecture, models, flows and diagrams.
-- **[Notion](https://www.notion.so/):** All-in-one tool for project management and organization.
-
 
 ---
 
