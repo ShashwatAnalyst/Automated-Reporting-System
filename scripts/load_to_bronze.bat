@@ -27,7 +27,7 @@ echo  Starting Data Load into Bronze Layer...
 echo =====================================================
 
 :: Execute SQL script
-psql -U %PGUSER% -d %PGDB% -f "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\load_all_data.sql"
+psql -U %PGUSER% -d %PGDB% -f "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\load_to_bronze.sql"
 
 IF %ERRORLEVEL% NEQ 0 (
     echo  Error: Failed to load bronze layer data. Please check your .sql script or CSV paths.
