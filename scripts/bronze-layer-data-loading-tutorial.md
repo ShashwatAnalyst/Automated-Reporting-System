@@ -40,9 +40,9 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 2. Double-click the `load_all_data.bat` file
 3. Wait for the terminal to show:
 ```bat
-=====================================================
+======================================================
  Starting Data Load into Bronze Layer...
-=====================================================
+======================================================
 TRUNCATE TABLE
 COPY 18494
 TRUNCATE TABLE
