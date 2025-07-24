@@ -48,8 +48,11 @@ COPY 18494
 TRUNCATE TABLE
 COPY 397
   ...
-  Load completed successfully.
-  Press any key to continue . . .
+======================================================
+ Load completed successfully.
+ Total time taken: 4 seconds.
+======================================================
+Press any key to continue . . .
 ```
 5. Your data is now loaded to the bronze layer.
 
