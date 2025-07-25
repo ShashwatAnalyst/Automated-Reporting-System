@@ -1,6 +1,18 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+:: ========================================================
+::  Silver Layer Automation Script (Batch Executable)
+:: --------------------------------------------------------
+:: Purpose:
+:: This script runs the transformation SQL process from the 
+:: Bronze Layer to the Silver Layer using the psql CLI.
+:: It performs cleaning, deduplication, type conversions,
+:: and business logic transformations using a truncate-and-load 
+:: approach. Ideal for batch ETL pipelines in local or dev setups.
+:: ========================================================
+
+
 :: Set PostgreSQL credentials
 set PGUSER=postgres
 set PGPASSWORD=password
