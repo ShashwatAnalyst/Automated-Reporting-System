@@ -24,7 +24,7 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 | File               | Purpose                                                                |
 |--------------------|------------------------------------------------------------------------|
 | `load_to_silver.sql` | Cleans and transforms data from Bronze to Silver using `TRUNCATE + INSERT` |
-| `load_silver.bat`    | Runs the SQL file using the `psql` CLI                                |
+| `load_to_silver.bat`    | Runs the SQL file using the `psql` CLI                                |
 | Bronze tables        | Source data already loaded using Bronze automation                   |
 
 </div>
