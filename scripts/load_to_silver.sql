@@ -1,3 +1,15 @@
+-- ========================================================
+--  Silver Layer Loading Script (Transform and Reload)
+-- --------------------------------------------------------
+-- Purpose:
+-- This script extracts data from the Bronze Layer,
+-- applies data cleaning, standardization, and business
+-- logic transformations, and loads it into the Silver Layer
+-- of the PostgreSQL data warehouse.
+-- It uses a truncate-and-insert strategy to ensure that each
+-- run provides a fresh and consistent snapshot of cleaned data.
+-- Ideal for building a structured base for analytics and BI.
+-- =========================================================
 
 TRUNCATE TABLE silver.crm_cust_info;
 INSERT INTO silver.crm_cust_info (
