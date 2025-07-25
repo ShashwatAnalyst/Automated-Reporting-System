@@ -26,7 +26,7 @@ SELECT  cst_id,
 FROM 
 (SELECT *,MAX(cst_create_date)OVER(PARTITION BY cst_id) AS latest_cst_create_date
 FROM bronze.crm_cust_info)
-WHERE cst_create_date = latest_cst_create_date
+WHERE cst_create_date = latest_cst_create_date;
 
 --===================================================================================
 
@@ -54,7 +54,7 @@ SELECT prd_id,
 		 END AS prd_line,
     prd_start_dt,
     LEAD(prd_start_dt)OVER(PARTITION BY prd_key ORDER BY prd_start_dt)-1 as prd_end_dt
-FROM bronze.crm_prd_info
+FROM bronze.crm_prd_info;
 
 --=======================================================================================
 
@@ -97,7 +97,7 @@ SELECT sls_ord_num,
 		 	  ELSE sls_price
 		 	  END sls_price
 	
-FROM bronze.crm_sales_details
+FROM bronze.crm_sales_details;
 
 --=======================================================================================
 
@@ -118,7 +118,7 @@ SELECT CASE WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid,4,LENGTH(cid))
 	   		WHEN UPPER(TRIM(gen)) IN ('F','FEMALE') THEN 'Female'
 	   		ELSE 'Unknown'
        		END AS gen
-FROM bronze.erp_cust_az12
+FROM bronze.erp_cust_az12;
 
 --=======================================================================================
 
@@ -133,7 +133,7 @@ CASE WHEN TRIM(cntry) = 'DE' THEN 'Germany'
 	 WHEN TRIM(cntry) = '' OR cntry IS NULL THEN 'Unknown'
 	 ELSE TRIM(cntry)
 	 END AS cntry
-FROM bronze.erp_loc_a101 
+FROM bronze.erp_loc_a101;
 
 --=======================================================================================
 
@@ -148,5 +148,5 @@ SELECT id,
 cat,
 subcat,
 maintenance
-FROM bronze.erp_px_cat_g1v2
+FROM bronze.erp_px_cat_g1v2;
 
