@@ -1,49 +1,43 @@
-# 🥈 Silver Layer Loading Tutorial
+# ⚙️ Silver Layer Data Loading Tutorial
 
-This guide explains how to clean and transform Bronze Layer data into a structured **Silver Layer** using a `.sql` + `.bat` automation combo. This layer improves quality, consistency, and readiness for analytical use.
+This guide walks you through the setup and use of the automated `.bat` and `.sql` data loading from the Bronze Layer to the cleaned and transformed Silver Layer in your PostgreSQL data warehouse.
 
+## 🗂 Prerequisites
 
-## 🖼 Architecture Snapshot
+- Bronze Layer tables are already loaded with raw data
+- Silver Layer tables are created under the `silver` schema
+- PostgreSQL installed and added to system PATH
+- Your database credentials (username, password)
 
-![Silver Layer Structure](https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/silver-layer-diagram.png?raw=true)
+## 📊 Silver Layer Architecture
 
-> 📌 This image illustrates how raw CRM/ERP sources move into the Bronze Layer and then transform into clean, ready-for-analytics Silver Layer tables.
+<p align="center">
+  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/silver-layer-diagram.png?raw=true" alt="Silver Layer Structure" width="650"/>
+</p>
 
+> This diagram shows how data flows from Bronze Layer into transformed, deduplicated, and clean Silver Layer tables — ready for analytics.
 
+## 📝 Files Involved
 
-## 🗂 Files Involved
+<div align="center">
 
-| File               | Purpose                                                                 |
-|--------------------|-------------------------------------------------------------------------|
-| `load_to_silver.sql` | Cleans and inserts data from Bronze to Silver tables using `TRUNCATE + INSERT` |
-| `load_silver.bat`    | Executes the SQL file using the `psql` CLI                            |
-| Bronze tables        | Source data (already loaded via Bronze ETL)                          |
+| File               | Purpose                                                                |
+|--------------------|------------------------------------------------------------------------|
+| `load_to_silver.sql` | Cleans and transforms data from Bronze to Silver using `TRUNCATE + INSERT` |
+| `load_silver.bat`    | Runs the SQL file using the `psql` CLI                                |
+| Bronze tables        | Source data already loaded using Bronze automation                   |
 
+</div>
 
-## ⚙️ How It Works
+## 🚀 How to Use
 
-Each Silver table is:
-- **Truncated** before insert (ensures a clean slate)
-- **Transformed** using SQL expressions:
-  - Fix nulls and formats
-  - Normalize gender, country, marital status
-  - Derive surrogate keys, fix prices/dates, etc.
-- Populated only with clean, latest, and deduplicated data
+1. Open the `load_silver.bat` file and update:
+   - `PGUSER`, `PGPASSWORD`, `PGDB`
+   - Make sure PostgreSQL `bin` path and SQL script path are correct
 
+2. Double-click the `load_silver.bat` file
 
-## 🚀 How to Run
-
-1. Make sure:
-   - Bronze Layer has already been populated
-   - PostgreSQL is installed and added to your system PATH
-   - Tables for the Silver Layer already exist in the schema
-
-2. Update and run the `.bat` file:
-   ```bat
-   load_silver.bat
-   ```
-3.Wait for terminal to show:
-
+3. Wait for the terminal to show:
 ```bat
 ======================================================
  Starting Data Load into Silver Layer...
@@ -52,15 +46,17 @@ TRUNCATE TABLE
 INSERT 0 18494
 ...
 ======================================================
-Load completed successfully.
-Total time taken: 3 seconds.
+ Load completed successfully.
+ Total time taken: 3 seconds.
 ======================================================
+Press any key to continue . . .
 ```
 
 4. ✅ Data is now ready for advanced modeling or Gold Layer generation!
 
-
-💡 Notes
+## 💡 Notes
 This layer is ideal for semantic consistency, validation, and quality control.
 
 Use Silver Layer tables in Power BI/Tableau dashboards, ad hoc SQL analysis, or as inputs to Gold aggregations.
+---
+✅ That's it! You've now automated the transformation from raw Bronze Layer to clean Silver Layer.
