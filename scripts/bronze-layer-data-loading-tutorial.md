@@ -13,7 +13,7 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 ## 📊 Bronze Layer Architecture
 
 <p align="center">
-  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/bronze-layer-diagram.png.png?raw=true" alt="Bronze Layer Structure" width="500"/>
+  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/bronze-layer-diagram.png?raw=true" alt="Bronze Layer Structure" width="500"/>
 </p>
 
 
