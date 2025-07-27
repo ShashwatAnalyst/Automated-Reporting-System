@@ -106,7 +106,7 @@ Key components of this project:
 
 ## 🚦 Project Requirements
 
-### Data Engineering
+### ⚙️ Data Engineering
 
 **Goal:**
 Build a modern data warehouse that consolidates sales data for analytics and reporting.
@@ -118,9 +118,8 @@ Build a modern data warehouse that consolidates sales data for analytics and rep
 - **Focus:** Use only the latest data; historization is not required.
 - **Documentation:** Provide clear data model documentation for business and analytics users.
 
----
 
-## 📈 Analytics & Reporting
+### 📈 Analytics & Reporting
 
 **Goal:**
 Develop SQL analytics to deliver insights on:
