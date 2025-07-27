@@ -27,7 +27,7 @@ echo  Starting Gold Layer View Creation...
 echo =======================================================
 
 :: Execute SQL to create views
-psql -U %PGUSER% -d %PGDB% -f "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\load_to_gold.sql"
+psql -U %PGUSER% -d %PGDB% -f "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\03_gold\load_to_gold.sql"
 
 IF %ERRORLEVEL% NEQ 0 (
     echo  Error: Failed to create Gold Layer views. Please check your SQL script.
