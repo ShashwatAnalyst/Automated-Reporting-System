@@ -12,7 +12,7 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 ## 📊 Silver Layer Architecture
 
 <p align="center">
-  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/silver-layer-diagram.png?raw=true" alt="Silver Layer Structure" width="650"/>
+  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/silver-layer-diagram.png?raw=true" alt="Silver Layer Structure" width="750"/>
 </p>
 
 > This diagram shows how data flows from Bronze Layer into transformed, deduplicated, and clean Silver Layer tables — ready for analytics.
