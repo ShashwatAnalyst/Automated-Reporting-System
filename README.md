@@ -42,7 +42,7 @@ The star schema diagram represents the final analytical data model in the Gold l
 
 ## 🚀 How to Run the Full ETL Pipeline
 
-To execute the complete ETL process and load all layers, simply double-click the `run_full_etl.bat` file in the project root. This will sequentially run all scripts required to build the warehouse from raw data to analytics-ready tables.
+After building and testing the automation scripts for all three layers (Bronze, Silver, and Gold), you can now run the entire ETL process in one click using the run_full_etl.bat file.
 
 **Wait for the terminal to show:**
 
