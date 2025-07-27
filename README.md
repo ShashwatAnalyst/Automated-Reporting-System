@@ -119,7 +119,7 @@ Build a modern data warehouse that consolidates sales data for analytics and rep
 
 ---
 
-### Analytics & Reporting
+### 📈 Analytics & Reporting
 
 **Goal:**
 Develop SQL analytics to deliver insights on:
