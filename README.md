@@ -42,7 +42,7 @@ The star schema diagram represents the final analytical data model in the Gold l
 
 ## 🚀 How to Run the Full ETL Pipeline
 
-After building and testing the automation scripts for all three layers (Bronze, Silver, and Gold), you can now run the entire ETL process in one click using the `run_full_etl.bat` file.
+After building and testing the automation scripts for all three layers ([Bronze](./scripts/01_bronze/), [Silver](./scripts/02_silver/), and [Gold](./scripts/03_gold/)), you can now run the entire ETL process in one click using the `run_full_etl.bat` file.
 
 **Wait for the terminal to show:**
 
