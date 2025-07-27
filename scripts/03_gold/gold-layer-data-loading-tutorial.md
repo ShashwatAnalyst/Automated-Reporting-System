@@ -12,7 +12,7 @@ This guide walks you through the setup and use of the automated `.bat` and `.sql
 ## 🏗️ Gold Layer Architecture
 
 <p align="center">
-  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/gold-layer-diagram.png?raw=true" alt="Gold Layer Structure" width="650"/>
+  <img src="https://github.com/ShashwatAnalyst/SQL-Data-Warehouse-Project/blob/main/docs/gold-layer-diagram.png?raw=true" alt="Gold Layer Structure" width="850"/>
 </p>
 
 > The Gold Layer consolidates and joins Silver tables into dimensional views (facts and dimensions), ideal for BI and reporting tools.
