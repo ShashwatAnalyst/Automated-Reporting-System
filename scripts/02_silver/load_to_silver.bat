@@ -44,5 +44,4 @@ IF %ERRORLEVEL% NEQ 0 (
     echo =====================================================
 )
 
-pause
-endlocal
+exit /b 0
