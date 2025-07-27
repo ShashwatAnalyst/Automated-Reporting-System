@@ -29,7 +29,7 @@ echo  Starting Silver Layer Data Transformation...
 echo =====================================================
 
 :: Run the silver layer SQL
-psql -U %PGUSER% -d %PGDB% -f "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\load_to_silver.sql"
+psql -U %PGUSER% -d %PGDB% -f "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\02_silver\load_to_silver.sql"
 
 IF %ERRORLEVEL% NEQ 0 (
     echo  Error: Failed during silver layer transformation.
