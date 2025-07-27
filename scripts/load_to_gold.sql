@@ -2,7 +2,8 @@
 --  Gold Layer View Creation Script
 -- --------------------------------------------------------
 -- Purpose:
--- This script creates final reporting views for the
+-- This script drops if already exists and
+-- creates final reporting views for the
 -- gold layer in your PostgreSQL data warehouse.
 -- The views are derived from the cleaned silver layer
 -- and are optimized for BI/reporting use cases.
@@ -12,6 +13,7 @@
 -- ========================================================
 --  DIMENSION: Customer
 -- --------------------------------------------------------
+DROP VIEW IF EXISTS gold.dim_customer;
 CREATE OR REPLACE VIEW gold.dim_customer AS 
 SELECT 
     ROW_NUMBER() OVER (ORDER BY ci.cst_id) AS customer_key,
@@ -35,6 +37,7 @@ LEFT JOIN silver.erp_loc_a101 la ON ci.cst_key = la.cid;
 -- ========================================================
 --  DIMENSION: Products
 -- --------------------------------------------------------
+DROP VIEW IF EXISTS gold.dim_products;
 CREATE OR REPLACE VIEW gold.dim_products AS 
 SELECT 
     ROW_NUMBER() OVER (ORDER BY pn.prd_key) AS product_key,
@@ -56,6 +59,7 @@ WHERE prd_end_dt IS NULL;  -- Filter out historical product records
 -- ========================================================
 --  FACT: Sales
 -- --------------------------------------------------------
+DROP VIEW IF EXISTS gold.fact_sales;
 CREATE OR REPLACE VIEW gold.fact_sales AS
 SELECT 
     sd.sls_ord_num AS order_number,
