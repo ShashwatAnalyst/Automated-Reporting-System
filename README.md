@@ -70,6 +70,7 @@ Gold Layer views created successfully.
 ========================================================
 Press any key to continue . . .
 ```
+And that’s it — your entire data warehouse is now refreshed and analytics-ready. ✅
 
 ---
 
