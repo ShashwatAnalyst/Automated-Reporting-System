@@ -45,6 +45,5 @@ echo  Total time taken: !ELAPSED! seconds.
 echo ======================================================
 )
 
-pause
-endlocal
+exit /b 0
 
