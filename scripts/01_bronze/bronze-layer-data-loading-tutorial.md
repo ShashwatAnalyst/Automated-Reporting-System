@@ -59,7 +59,7 @@ Press any key to continue . . .
 ## 💡 Notes
 
 - This is a full **truncate-and-load** strategy — great for fresh daily/weekly loads in local setups.
-- the data is now ready for inputs to silver layer after cleaning.
+- The data is now ready for inputs to silver layer after cleaning.
 
 ---
 
