@@ -36,7 +36,7 @@ This diagram illustrates how data from CRM and ERP sources is integrated at the 
 
 The star schema diagram represents the final analytical data model in the Gold layer. It demonstrates how fact and dimension tables are structured for efficient querying and reporting, with clear relationships between sales transactions, customers, and products.<br><br>
 
-![Star Schema Model](docs/star_schema_model_diagram.png)
+![Star Schema Model](docs/star_schema_diagram.png)
 
 ---
 
