@@ -97,8 +97,7 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
     jupyter nbconvert ^
         --to notebook ^
         --execute ^
-        --output "Analysis_Report_Executed.ipynb" ^
-        --output-dir "Automated Reports" ^
+        --inplace ^
         "Automated Reports\Analysis_&_Report.ipynb"
     
     echo ┌─────────────────────────────────────────────────────────┐
@@ -107,22 +106,22 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
     
     IF !ERRORLEVEL! EQU 0 (
         echo.
-        echo ✅ REPORT GENERATION SUCCESSFUL!
-        echo 📄 Output: Analysis_Report_Executed.ipynb
+        echo ✅ REPORT EXECUTION SUCCESSFUL!
+        echo 📄 Results saved to original notebook: Analysis_&_Report.ipynb
         
         :: Display file size for confirmation
-        if exist "Automated Reports\Analysis_Report_Executed.ipynb" (
-            for %%F in ("Automated Reports\Analysis_Report_Executed.ipynb") do (
+        if exist "Automated Reports\Analysis_&_Report.ipynb" (
+            for %%F in ("Automated Reports\Analysis_&_Report.ipynb") do (
                 set "filesize=%%~zF"
                 set /a filekb=!filesize!/1024
             )
-            echo 📏 Report size: !filekb! KB (!filesize! bytes)
+            echo 📏 Updated notebook size: !filekb! KB (!filesize! bytes)
         )
     ) else (
         echo.
         echo ⚠️  REPORT GENERATION COMPLETED WITH ISSUES
         echo 📝 The report file may contain error details
-        echo 💡 Check Analysis_Report_Executed.ipynb for error messages
+        echo 💡 Check Analysis_&_Report.ipynb for error messages
         pause
         exit /b 1
     )
@@ -152,7 +151,7 @@ echo  ├─ ✅ GOLD: Business logic applied
 echo  └─ ✅ REPORT: Analytics ^& visualizations generated
 echo.
 echo  📁 FINAL REPORT LOCATION:
-echo     Automated Reports\Analysis_Report_Executed.ipynb
+echo     Automated Reports\Analysis_&_Report.ipynb (updated with results)
 echo.
 echo  ⏱️  EXECUTION TIME: !MINUTES! minutes !SECONDS! seconds
 echo  🕐 COMPLETED: %TIME% on %DATE%
