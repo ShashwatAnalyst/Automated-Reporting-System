@@ -58,7 +58,7 @@ Press any key to continue . . .
 
 - This layer is ideal for semantic consistency, validation, and quality control.
 
-- Use Silver Layer tables in Power BI/Tableau dashboards, ad hoc SQL analysis, or as inputs to Gold aggregations.
+- The data is now ready for further integration and loading to gold layer.
 
 ---
 ✅ That's it! You've now automated the transformation from raw Bronze Layer to clean Silver Layer.

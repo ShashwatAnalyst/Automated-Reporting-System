@@ -59,7 +59,7 @@ Press any key to continue . . .
 ## 💡 Notes
 
 - This is a full **truncate-and-load** strategy — great for fresh daily/weekly loads in local setups.
-- Use this as a clean starting point for BI dashboards, data exploration, or analytics projects.
+- The data is now ready for inputs to silver layer after cleaning.
 
 ---
 
