@@ -2,12 +2,7 @@
 setlocal EnableDelayedExpansion
 
 :: ========================================================
-::  Full ETL Pipeline Runner - Bronze → Silver → Gold
-:: --------------------------------------------------------
-:: Purpose:
-:: Executes all three ETL stages in sequence using their 
-:: respective .bat files to load Bronze, Silver, and Gold 
-:: layers of the PostgreSQL Data Warehouse.
+::  Full ETL Pipeline Runner - Bronze → Silver → Gold → Report
 :: ========================================================
 
 :: Capture start time
@@ -19,17 +14,17 @@ echo ========================================================
 
 :: Step 1: Load Bronze Layer
 echo.
-echo [1/3] � Loading Bronze Layer...
+echo [1/4] Loading Bronze Layer...
 call "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\01_bronze\load_to_bronze.bat"
 IF %ERRORLEVEL% NEQ 0 (
-    echo  Bronze Layer loading failed. Aborting.
+    echo Bronze Layer loading failed. Aborting.
     pause
     exit /b 1
 )
 
 :: Step 2: Load Silver Layer
 echo.
-echo [2/3] Loading Silver Layer...
+echo [2/4] Loading Silver Layer...
 call "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\02_silver\load_to_silver.bat"
 IF %ERRORLEVEL% NEQ 0 (
     echo Silver Layer loading failed. Aborting.
@@ -39,10 +34,20 @@ IF %ERRORLEVEL% NEQ 0 (
 
 :: Step 3: Load Gold Layer
 echo.
-echo [3/3] Loading Gold Layer...
+echo [3/4] Loading Gold Layer...
 call "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\scripts\03_gold\load_to_gold.bat"
 IF %ERRORLEVEL% NEQ 0 (
-    echo  Gold Layer loading failed. Aborting.
+    echo Gold Layer loading failed. Aborting.
+    pause
+    exit /b 1
+)
+
+:: Step 4: Run the Completed Report Notebook
+echo.
+echo [4/4] Running Analysis & Report Notebook...
+call jupyter nbconvert --to notebook --execute "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\Automated Reports\Analysis_&_Report.ipynb" --output "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\Automated Reports\Analysis_&_Report_Executed.ipynb"
+IF %ERRORLEVEL% NEQ 0 (
+    echo Report Notebook execution failed. Aborting.
     pause
     exit /b 1
 )
@@ -54,7 +59,7 @@ set /a ELAPSED=!END! - !START!
 echo.
 echo ========================================================
 echo  Full ETL Process Completed Successfully!
-echo � Total Time Taken: !ELAPSED! seconds
+echo  Total Time Taken: !ELAPSED! seconds
 echo ========================================================
 pause
 endlocal
