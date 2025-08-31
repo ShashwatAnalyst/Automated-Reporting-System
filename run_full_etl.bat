@@ -46,7 +46,7 @@ echo.
 echo [4/4] Running Analysis Report...
 
 :: Activate conda environment and run jupyter
-call conda activate base
+call conda activate shashwatenv
 if exist "Automated Reports\Analysis_&_Report.ipynb" (
     jupyter nbconvert ^
         --to notebook ^
