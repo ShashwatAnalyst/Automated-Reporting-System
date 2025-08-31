@@ -85,7 +85,7 @@ if %ERRORLEVEL% EQU 0 (
 )
 
 echo 🔍 Locating analysis notebook...
-if exist "Automated Reports\Analysis_&_Report.ipynb" (
+if exist "automated_reports\Analysis_&_Report.ipynb" (
     echo ✅ Found: Analysis_^&_Report.ipynb
     echo.
     echo 🏃‍♂️ Executing notebook cells...
@@ -99,7 +99,7 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
         --inplace ^
         --log-level=CRITICAL ^
         --ExecutePreprocessor.timeout=600 ^
-        "Automated Reports\Analysis_&_Report.ipynb" >nul 2>&1
+        "automated_reports\Analysis_&_Report.ipynb" >nul 2>&1
     
     echo    📈 Generating visualizations...
     echo    💾 Saving results...
@@ -110,8 +110,8 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
         echo 📄 Results saved to original notebook: Analysis_^&_Report.ipynb
         
         :: Display file size for confirmation
-        if exist "Automated Reports\Analysis_&_Report.ipynb" (
-            for %%F in ("Automated Reports\Analysis_&_Report.ipynb") do (
+        if exist "automated_reports\Analysis_&_Report.ipynb" (
+            for %%F in ("automated_reports\Analysis_&_Report.ipynb") do (
                 set "filesize=%%~zF"
                 set /a filekb=!filesize!/1024
             )
@@ -127,7 +127,7 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
     )
 ) else (
     echo ❌ Notebook file not found!
-    echo 📂 Expected: Automated Reports\Analysis_^&_Report.ipynb
+    echo 📂 Expected: automated_reports\Analysis_^&_Report.ipynb
     echo 💡 Please verify the file exists in the correct location
     pause
     exit /b 1
@@ -151,7 +151,7 @@ echo  ├─ ✅ GOLD: Business logic applied
 echo  └─ ✅ REPORT: Analytics ^& visualizations generated
 echo.
 echo  📁 FINAL REPORT LOCATION:
-echo     Automated Reports\Analysis_^&_Report.ipynb (updated with results)
+echo     automated_reports\Analysis_^&_Report.ipynb (updated with results)
 echo.
 echo  ⏱️  EXECUTION TIME: !MINUTES! minutes !SECONDS! seconds
 echo  🕐 COMPLETED: %TIME% on %DATE%
@@ -165,6 +165,6 @@ echo   • Share findings with stakeholders
 echo.
 echo 📂 Press any key to open the reports folder...
 pause >nul
-explorer "Automated Reports"
+explorer "automated_reports"
 
 endlocal
