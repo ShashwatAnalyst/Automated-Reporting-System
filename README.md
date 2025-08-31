@@ -1,5 +1,5 @@
 
-# Data Warehouse and Automated Analytics Reporting Project
+# Data Warehouse Automation & Reporting Project
 
 Welcome to the **Data Warehouse and Analytics Project** repository! 🚀  
 This project showcases a complete data warehousing and analytics workflow, from raw data ingestion to business insights. Built as a hands-on portfolio project, it demonstrates practical data engineering and analytics skills using industry-standard approaches.
