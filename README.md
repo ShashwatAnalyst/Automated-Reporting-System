@@ -83,13 +83,14 @@ With this, your data warehouse and analytics reports are fully refreshed and rea
 ---
 ## 📄 Reports
 
-The project automatically generates the following reports after running the ETL pipeline:
+After running the ETL pipeline, the project automatically generates the following reports:
 
 - **Customer_Report.csv** – Customer analytics and metrics  
 - **Product_Report.csv** – Product performance insights  
 - **Notebook_Report.ipynb** – Complete visual report with charts and tables  
 
-Access the final notebook PDF here: [Final Report Notebook PDF](/automated_reports/report.pdf)
+You can also access the **final report as a PDF** here: [Final Report Notebook PDF](./automated_reports/report.pdf)
+
 
 ---
 
