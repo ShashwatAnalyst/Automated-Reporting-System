@@ -87,7 +87,8 @@ After running the ETL pipeline, the project automatically generates the followin
 
 - **Customer_Report.csv** – Customer analytics and metrics  
 - **Product_Report.csv** – Product performance insights  
-- **Notebook_Report.ipynb** – Complete visual report with charts and tables  
+- **Analytics_&_Report.ipynb** – Complete visual report with charts and tables  
+- **report.pdf** - Clean PDF version of **Analytics_&_Report.ipynb** notebook file
 
 You can also access the **final report as a PDF** here: [Final Report Notebook PDF](./automated_reports/report.pdf)
 
