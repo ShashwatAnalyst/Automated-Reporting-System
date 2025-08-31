@@ -10,7 +10,6 @@ This project showcases a complete data warehousing and analytics workflow, from 
 This project implements a Medallion Architecture with three layers: **Bronze**, **Silver**, and **Gold**.<br><br>
 ![Data Architecture](docs/Data_Architecture.png)
 
-<<<<<<< HEAD
 ---
 
 ## 🔗 Integration Model Diagram
@@ -18,33 +17,27 @@ This project implements a Medallion Architecture with three layers: **Bronze**, 
 This diagram illustrates how data from CRM and ERP sources is integrated at the logical level. It shows the relationships between transactional, customer, and product tables across both systems, highlighting how disparate data sources are connected and unified for downstream processing.
 
 ![Integration Model](docs/integration_model_diagram.png)
-=======
+
 - **Bronze Layer**: Captures raw data directly from source systems (CSV files) into a SQL Server database.
 - **Silver Layer**: Focuses on cleaning, standardizing, and transforming data to prepare it for analytics.
 - **Gold Layer**: Contains business-ready, analytics-optimized data modeled in a star schema.
->>>>>>> d21aef071cbf0ccc6b20ecfbc6b31284722126e5
+
 
 ---
 
 ## 🔄 Data Flow Diagram
 
-<<<<<<< HEAD
+
 This diagram summarizes the journey of data from CRM and ERP sources through the Bronze and Silver layers, where it is refined and integrated. The process culminates in the Gold layer, producing analytical tables ready for business intelligence and reporting.
-=======
+
 This diagram summarizes the journey of data from CRM and ERP sources through the Bronze and Silver layers, where it is refined and integrated. The process culminates in the Gold layer, producing analytical tables ready for business intelligence and reporting.<br><br>
->>>>>>> d21aef071cbf0ccc6b20ecfbc6b31284722126e5
+
 
 ![Gold Layer Data Flow](docs/gold-layer-diagram.png)
 
 ---
 
-<<<<<<< HEAD
-## ⭐ Star Schema Model Diagram
 
-The star schema diagram represents the final analytical data model in the Gold layer. It demonstrates how fact and dimension tables are structured for efficient querying and reporting, with clear relationships between sales transactions, customers, and products.
-
-![Star Schema Model](docs/star_schema_model_diagram.png)
-=======
 ## 📊 Integration Model Diagram
 
 This diagram illustrates how data from CRM and ERP sources is integrated at the logical level. It shows the relationships between transactional, customer, and product tables across both systems, highlighting how disparate data sources are connected and unified for downstream processing.<br><br>
@@ -92,7 +85,7 @@ Gold Layer views created successfully.
 Press any key to continue . . .
 ```
 And that’s it — your entire data warehouse is now refreshed and analytics-ready. ✅
->>>>>>> d21aef071cbf0ccc6b20ecfbc6b31284722126e5
+
 
 ---
 
@@ -115,17 +108,18 @@ Key components of this project:
 
 ---
 
-## 🛠️ Useful Resources & Tools:
+## 🛠️ Useful Resources & Tools
 
-- **[datasets/](./datasets/):** Source CSV files for the project.
-- **SQL Server / PostgreSQL:** Database server for hosting the warehouse.
-- **Database Management Tools:** GUI tools like PGAdmin or SQL Server Management Studio.
-- **[GitHub](https://github.com/):** Version control and collaboration.
-- **[DrawIO](https://www.drawio.com/):** For creating architecture and data model diagrams.
+- **[datasets/](./datasets/)**  
+- **[pgAdmin Download](https://www.pgadmin.org/download/)**  
+- **[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)**  
+- **[GitHub](https://github.com/)**  
+- **[Draw.io](https://www.draw.io/)**  
+
 
 ---
 
-<<<<<<< HEAD
+
 ## 🚀 How to Run the Full ETL Pipeline
 
 To execute the complete ETL process and load all layers, simply double-click the `run_full_etl.bat` file in the project root. This will sequentially run all scripts required to build the warehouse from raw data to analytics-ready tables.
@@ -219,7 +213,7 @@ SQL-Data-Warehouse-Project/
 
 ---
 
-=======
+
 
 ## 🚦 Project Requirements
 
@@ -281,7 +275,6 @@ SQL-Data-Warehouse-Project/
 ```
 ---
 
->>>>>>> d21aef071cbf0ccc6b20ecfbc6b31284722126e5
 ## 🛡️ License
 
 This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and share this project with proper attribution.
@@ -290,11 +283,9 @@ This project is licensed under the [MIT License](LICENSE). You are free to use, 
 
 Hi, I'm **Shashwat Singh**. I'm a passionate **Data Analyst** with a **B.Tech** in **Computer Science and Engineering** (specialization in **Big Data Analytics**) from SRM Institute of Science and Technology. I thrive on working with data in all its forms, from **business intelligence** and **reporting** to **ETL processes**, **automation**, and **advanced analytics**. My expertise spans the full **data lifecycle**, enabling impactful insights and efficient data-driven solutions.
 
-<<<<<<< HEAD
-Let's stay in touch! Feel free to connect with me on the following platforms:
-=======
-Let's stay in touch! Feel free to connect with me through:
->>>>>>> d21aef071cbf0ccc6b20ecfbc6b31284722126e5
+
+Let's stay in touch! Feel free to connect with me :
+
 
 [![ Portfolio](https://img.shields.io/badge/-Portfolio-800000?style=for-the-badge&logo=globe&logoColor=white)](https://www.shashwatanalyst.online/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shashwat-singh-bb2730357/)
@@ -302,9 +293,8 @@ Let's stay in touch! Feel free to connect with me through:
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black)](https://leetcode.com/u/fclDlbfku9/)
 [![HackerRank](https://img.shields.io/badge/Hackerrank-2EC866?style=for-the-badge&logo=HackerRank&logoColor=white)](https://www.hackerrank.com/profile/shashwat98k)
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> d21aef071cbf0ccc6b20ecfbc6b31284722126e5
+
+
 
