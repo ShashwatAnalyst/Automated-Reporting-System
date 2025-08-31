@@ -1,6 +1,7 @@
 # Data Warehouse Automation & Reporting Project
 
-Welcome to the **Data Warehouse Automation & Reporting System** repository! 🚀 <br>
+Welcome to the **Data Warehouse Automation & Reporting System** repository! 🚀 
+
 This project showcases a complete data warehousing and analytics workflow, now **fully automated**. The **data warehouse** is built using **SQL queries** to create the Bronze, Silver, and Gold layers, while **analytics and reporting** are performed using **Python, Pandas, Matplotlib, and Seaborn** to generate visual reports and CSV files. The entire **ETL process is automated** and executed in **a single click using batch file processing**, making the workflow seamless from raw data ingestion to actionable business insights. Built as a hands-on portfolio project, it demonstrates practical **data engineering, automation, and analytics skills** using industry-standard approaches.
 
 
