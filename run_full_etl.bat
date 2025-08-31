@@ -45,7 +45,7 @@ IF %ERRORLEVEL% NEQ 0 (
 :: Step 4: Run the Completed Report Notebook
 echo.
 echo [4/4] Running Analysis & Report Notebook...
-call jupyter nbconvert --to notebook --execute "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\Automated Reports\Analysis_&_Report.ipynb" --output "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\Automated Reports\Analysis_&_Report_Executed.ipynb"
+call "C:\ProgramData\Anaconda3-2022\Scripts\jupyter.exe" nbconvert --to notebook --execute "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\Automated Reports\Analysis_^&_Report.ipynb" --output "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project\Automated Reports\Analysis_&_Report_Executed.ipynb"
 IF %ERRORLEVEL% NEQ 0 (
     echo Report Notebook execution failed. Aborting.
     pause
@@ -63,3 +63,4 @@ echo  Total Time Taken: !ELAPSED! seconds
 echo ========================================================
 pause
 endlocal
+
