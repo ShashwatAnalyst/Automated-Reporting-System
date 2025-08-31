@@ -90,19 +90,19 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
     echo.
     echo 🏃‍♂️ Executing notebook cells...
     echo ⏳ This process may take several minutes depending on data volume
-    echo ┌─────────────────────────────────────────────────────────┐
-    echo │                 JUPYTER EXECUTION LOG                   │
-    echo └─────────────────────────────────────────────────────────┘
+    echo.
+    echo    📊 Processing analysis...
     
     jupyter nbconvert ^
         --to notebook ^
         --execute ^
         --inplace ^
-        "Automated Reports\Analysis_&_Report.ipynb"
+        --log-level=CRITICAL ^
+        --ExecutePreprocessor.timeout=600 ^
+        "Automated Reports\Analysis_&_Report.ipynb" >nul 2>&1
     
-    echo ┌─────────────────────────────────────────────────────────┐
-    echo │                   EXECUTION COMPLETE                    │
-    echo └─────────────────────────────────────────────────────────┘
+    echo    📈 Generating visualizations...
+    echo    💾 Saving results...
     
     IF !ERRORLEVEL! EQU 0 (
         echo.
