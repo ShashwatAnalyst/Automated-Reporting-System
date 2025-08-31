@@ -1,10 +1,11 @@
-
 # Data Warehouse Automation & Reporting Project
 
-Welcome to the **Data Warehouse and Analytics Project** repository! 🚀  
-This project showcases a complete data warehousing and analytics workflow, from raw data ingestion to business insights. Built as a hands-on portfolio project, it demonstrates practical data engineering and analytics skills using industry-standard approaches.
+Welcome to the **Data Warehouse Automation & Reporting System** repository! 🚀 <br>
+This project showcases a complete data warehousing and analytics workflow, now **fully automated**. The **data warehouse** is built using **SQL queries** to create the Bronze, Silver, and Gold layers, while **analytics and reporting** are performed using **Python, Pandas, Matplotlib, and Seaborn** to generate visual reports and CSV files. The entire **ETL process is automated** and executed in **a single click using batch file processing**, making the workflow seamless from raw data ingestion to actionable business insights. Built as a hands-on portfolio project, it demonstrates practical **data engineering, automation, and analytics skills** using industry-standard approaches.
+
 
 ---
+
 ## 🏗️ Data Architecture
 
 This project implements a Medallion Architecture with three layers: **Bronze**, **Silver**, and **Gold**.<br><br>
@@ -22,27 +23,15 @@ This diagram illustrates how data from CRM and ERP sources is integrated at the 
 - **Silver Layer**: Focuses on cleaning, standardizing, and transforming data to prepare it for analytics.
 - **Gold Layer**: Contains business-ready, analytics-optimized data modeled in a star schema.
 
-
 ---
 
-## 🔄 Data Flow Diagram
+## 🔄 Automated Data Flow Diagram
 
+This diagram summarizes the journey of data from CRM and ERP sources through the Bronze and Silver layers, where it is refined and integrated. The process culminates in the Gold layer, producing analytical tables ready for business intelligence and reporting.  
 
-This diagram summarizes the journey of data from CRM and ERP sources through the Bronze and Silver layers, where it is refined and integrated. The process culminates in the Gold layer, producing analytical tables ready for business intelligence and reporting.
-
-This diagram summarizes the journey of data from CRM and ERP sources through the Bronze and Silver layers, where it is refined and integrated. The process culminates in the Gold layer, producing analytical tables ready for business intelligence and reporting.<br><br>
-
+**New Feature:** The entire ETL process is **automated** via a batch file, so all layers and reporting outputs are refreshed with a single execution.  
 
 ![Gold Layer Data Flow](docs/gold-layer-diagram.png)
-
----
-
-
-## 📊 Integration Model Diagram
-
-This diagram illustrates how data from CRM and ERP sources is integrated at the logical level. It shows the relationships between transactional, customer, and product tables across both systems, highlighting how disparate data sources are connected and unified for downstream processing.<br><br>
-
-![Integration Model](docs/integration_model_diagram.png)
 
 ---
 
@@ -54,11 +43,11 @@ The star schema diagram represents the final analytical data model in the Gold l
 
 ---
 
-## 🚀 How to Run the Full ETL Pipeline
+## 🚀 How to Run the Full Automated ETL Pipeline
 
-After building and testing the automation scripts for all three layers ([Bronze](./scripts/01_bronze/), [Silver](./scripts/02_silver/), and [Gold](./scripts/03_gold/)), you can now run the entire ETL process in one click using the `run_full_etl.bat` file.
+After building and testing the automation scripts for all three layers ([Bronze](./scripts/01_bronze/), [Silver](./scripts/02_silver/), and [Gold](./scripts/03_gold/)), you can now run the **entire ETL process and reporting system in one click** using the `run_full_etl.bat` file.  
 
-**Wait for the terminal to show:**
+**Sample Output:**
 
 ```bat
 ========================================================
@@ -78,13 +67,18 @@ Silver Layer Transformation Completed Successfully.
 CREATE VIEW ...
 Gold Layer views created successfully.
 
+[4/4] Generating Reports...
+Customer_Report.csv generated successfully.
+Product_Report.csv generated successfully.
+Notebook_Report.ipynb updated successfully.
+
 ========================================================
- Full ETL Process Completed Successfully
- Total Time Taken: 30 seconds
+ Full ETL & Reporting Process Completed Successfully
+ Total Time Taken: 35 seconds
 ========================================================
 Press any key to continue . . .
 ```
-And that’s it — your entire data warehouse is now refreshed and analytics-ready. ✅
+With this, your data warehouse and analytics reports are fully refreshed and ready for stakeholders. ✅
 
 
 ---
@@ -96,7 +90,7 @@ Key components of this project:
 1. **Layered Data Architecture**: Modern data warehouse design using Bronze, Silver, and Gold layers.
 2. **ETL Pipelines**: Automated extraction, transformation, and loading of data from source files.
 3. **Data Modeling**: Creation of fact and dimension tables for efficient analytical queries.
-4. **Analytics & Reporting**: SQL-based queries and reports to generate actionable business insights.
+4. **Analytics & Reporting**: Generates customer and product CSV reports and updates Jupyter notebooks automatically.
 
 🎯 This repository is ideal for those looking to demonstrate skills in:
 - SQL Development
@@ -104,50 +98,21 @@ Key components of this project:
 - Data Engineering  
 - ETL Pipeline Development  
 - Data Modeling  
-- Data Analytics  
+- Data Analytics & Reporting
 
 ---
 
 ## 🛠️ Useful Resources & Tools
 
 - **[datasets/](./datasets/)**  
+- **[Anaconda Download (Windows)](https://www.anaconda.com/products/distribution#windows)**  
+- **[Anaconda Download (Mac/Linux)](https://www.anaconda.com/products/distribution#macos)**  
 - **[pgAdmin Download](https://www.pgadmin.org/download/)**  
 - **[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)**  
 - **[GitHub](https://github.com/)**  
-- **[Draw.io](https://www.draw.io/)**  
+- **[Draw.io](https://www.draw.io/)**
 
 
----
-
-
-## 🚀 How to Run the Full ETL Pipeline
-
-To execute the complete ETL process and load all layers, simply double-click the `run_full_etl.bat` file in the project root. This will sequentially run all scripts required to build the warehouse from raw data to analytics-ready tables.
-
-**Sample Output:**
-```
-========================================================
- Starting Full ETL Process...
-========================================================
-
-[1/3] 🚩 Loading Bronze Layer...
-TRUNCATE TABLE
-COPY ...
-Load completed successfully.
-
-[2/3] Loading Silver Layer...
-INSERT ...
-Silver Layer Transformation Completed Successfully.
-
-[3/3] Loading Gold Layer...
-CREATE VIEW ...
-Gold Layer views created successfully.
-
-========================================================
- Full ETL Process Completed Successfully
-========================================================
-Press any key to continue . . .
-```
 
 ---
 
@@ -167,78 +132,16 @@ Build a modern data warehouse that consolidates sales data for analytics and rep
 
 ---
 
-### Analytics & Reporting
-
-**Goal:**
-Develop SQL analytics to deliver insights on:
-- Customer behavior
-- Product performance
-- Sales trends
-
-These insights help stakeholders make informed, strategic decisions.
-
----
-
-## 📂 Repository Structure
-
-```
-SQL-Data-Warehouse-Project/
-│
-├── datasets/                  # Source datasets (ERP and CRM CSV files)
-│   ├── source_crm/            # CRM data
-│   └── source_erp/            # ERP data
-│
-├── docs/                      # Documentation and diagrams
-│   ├── bronze-layer-diagram.png
-│   ├── Data_Architecture.png
-│   ├── data_catalog.md
-│   ├── gold-layer-diagram.png
-│   ├── integration_model_diagram.png
-│   ├── naming_conventions.md
-│   ├── silver-layer-diagram.png
-│   └── star_schema_model_diagram.png
-│
-├── scripts/                   # ETL and transformation scripts
-│   ├── 01_bronze/             # Bronze layer scripts
-│   ├── 02_silver/             # Silver layer scripts
-│   └── 03_gold/               # Gold layer scripts
-│
-├── tests/                     # Data quality and validation scripts
-│
-├── run_full_etl.bat           # Batch file to run the full ETL pipeline
-├── README.md                  # Project overview and instructions
-├── LICENSE                    # License information
-└── ...                        # Other supporting files
-```
-
----
-
-
-
-## 🚦 Project Requirements
-
-### ⚙️ Data Engineering
-
-**Goal:**
-Build a modern data warehouse that consolidates sales data for analytics and reporting.
-
-**Scope:**
-- **Data Sources:** Import data from ERP and CRM systems (CSV format).
-- **Data Quality:** Clean and resolve issues before analysis.
-- **Integration:** Merge both sources into a unified, analysis-friendly model.
-- **Focus:** Use only the latest data; historization is not required.
-- **Documentation:** Provide clear data model documentation for business and analytics users.
-
-
 ### 📈 Analytics & Reporting
 
-**Goal:**
-Develop SQL analytics to deliver insights on:
-- Customer behavior
-- Product performance
-- Sales trends
+**Goal:**  
+Develop automated analytics and visual reports using **Python, Pandas, Matplotlib, and Seaborn** to deliver actionable insights on:  
+- Customer behavior and segmentation  
+- Product performance and trends  
+- Sales patterns and time-based analysis  
 
-These insights help stakeholders make informed, strategic decisions.
+**Automation:**  
+Reports are generated automatically as **CSV files** and **notebooks with visualizations**, enabling easy review and decision-making.
 
 ---
 
@@ -248,8 +151,8 @@ These insights help stakeholders make informed, strategic decisions.
 SQL-Data-Warehouse-Project/
 │
 ├── datasets/                  # Source datasets (ERP and CRM CSV files)
-│   ├── source_crm/            # CRM data
-│   └── source_erp/            # ERP data
+│   ├── source_crm/            
+│   └── source_erp/            
 │
 ├── docs/                      # Documentation and diagrams
 │   ├── bronze-layer-diagram.png
@@ -262,18 +165,25 @@ SQL-Data-Warehouse-Project/
 │   └── star_schema_model_diagram.png
 │
 ├── scripts/                   # ETL and transformation scripts
-│   ├── 01_bronze/             # Bronze layer scripts
-│   ├── 02_silver/             # Silver layer scripts
-│   └── 03_gold/               # Gold layer scripts
+│   ├── 01_bronze/             
+│   ├── 02_silver/             
+│   └── 03_gold/               
+│
+├── Automated Reports/                   # Automated output reports
+│   ├── Customer_Report.csv
+│   ├── Product_Report.csv
+│   ├── Analytics_&_Report.ipynb
+│   └── Report.html
 │
 ├── tests/                     # Data quality and validation scripts
-│
-├── run_full_etl.bat           # Batch file to run the full ETL pipeline
-├── README.md                  # Project overview and instructions
-├── LICENSE                    # License information
-└── ...                        # Other supporting files
+├── run_full_etl.bat           # Batch file to run the full ETL pipeline and reporting
+├── README.md                  
+├── LICENSE                    
+└── ...                        
 ```
+
 ---
+
 
 ## 🛡️ License
 
