@@ -86,7 +86,7 @@ if %ERRORLEVEL% EQU 0 (
 
 echo 🔍 Locating analysis notebook...
 if exist "Automated Reports\Analysis_&_Report.ipynb" (
-    echo ✅ Found: Analysis_&_Report.ipynb
+    echo ✅ Found: Analysis_^&_Report.ipynb
     echo.
     echo 🏃‍♂️ Executing notebook cells...
     echo ⏳ This process may take several minutes depending on data volume
@@ -107,7 +107,7 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
     IF !ERRORLEVEL! EQU 0 (
         echo.
         echo ✅ REPORT EXECUTION SUCCESSFUL!
-        echo 📄 Results saved to original notebook: Analysis_&_Report.ipynb
+        echo 📄 Results saved to original notebook: Analysis_^&_Report.ipynb
         
         :: Display file size for confirmation
         if exist "Automated Reports\Analysis_&_Report.ipynb" (
@@ -121,13 +121,13 @@ if exist "Automated Reports\Analysis_&_Report.ipynb" (
         echo.
         echo ⚠️  REPORT GENERATION COMPLETED WITH ISSUES
         echo 📝 The report file may contain error details
-        echo 💡 Check Analysis_&_Report.ipynb for error messages
+        echo 💡 Check Analysis_^&_Report.ipynb for error messages
         pause
         exit /b 1
     )
 ) else (
     echo ❌ Notebook file not found!
-    echo 📂 Expected: Automated Reports\Analysis_&_Report.ipynb
+    echo 📂 Expected: Automated Reports\Analysis_^&_Report.ipynb
     echo 💡 Please verify the file exists in the correct location
     pause
     exit /b 1
@@ -151,7 +151,7 @@ echo  ├─ ✅ GOLD: Business logic applied
 echo  └─ ✅ REPORT: Analytics ^& visualizations generated
 echo.
 echo  📁 FINAL REPORT LOCATION:
-echo     Automated Reports\Analysis_&_Report.ipynb (updated with results)
+echo     Automated Reports\Analysis_^&_Report.ipynb (updated with results)
 echo.
 echo  ⏱️  EXECUTION TIME: !MINUTES! minutes !SECONDS! seconds
 echo  🕐 COMPLETED: %TIME% on %DATE%
