@@ -89,7 +89,7 @@ The project automatically generates the following reports after running the ETL 
 - **Product_Report.csv** – Product performance insights  
 - **Notebook_Report.ipynb** – Complete visual report with charts and tables  
 
-Access the final notebook report here: [Final Report Notebook](./Automated_Reports/report.pdf)
+Access the final notebook pdf here: [Final Report Notebook](./Automated_Reports/report.pdf)
 
 ---
 
