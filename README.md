@@ -80,6 +80,16 @@ Press any key to continue . . .
 ```
 With this, your data warehouse and analytics reports are fully refreshed and ready for stakeholders. ✅
 
+---
+## 📄 Reports
+
+The project automatically generates the following reports after running the ETL pipeline:
+
+- **Customer_Report.csv** – Customer analytics and metrics  
+- **Product_Report.csv** – Product performance insights  
+- **Notebook_Report.ipynb** – Complete visual report with charts and tables  
+
+Access the final notebook report here: [Final Report Notebook](./Automated_Reports/report.pdf)
 
 ---
 
@@ -90,7 +100,7 @@ Key components of this project:
 1. **Layered Data Architecture**: Modern data warehouse design using Bronze, Silver, and Gold layers.
 2. **ETL Pipelines**: Automated extraction, transformation, and loading of data from source files.
 3. **Data Modeling**: Creation of fact and dimension tables for efficient analytical queries.
-4. **Analytics & Reporting**: Generates customer and product CSV reports and updates Jupyter notebooks automatically.
+4. **Analytics & Reporting**: Generates customer and product CSV reports and updates Jupyter notebooks and generate pdf report automatically.
 
 🎯 This repository is ideal for those looking to demonstrate skills in:
 - SQL Development
