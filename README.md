@@ -105,8 +105,7 @@ Key components of this project:
 ## 🛠️ Useful Resources & Tools
 
 - **[datasets/](./datasets/)**  
-- **[Anaconda Download (Windows)](https://www.anaconda.com/products/distribution#windows)**  
-- **[Anaconda Download (Mac/Linux)](https://www.anaconda.com/products/distribution#macos)**  
+- **[Anaconda Download](https://www.anaconda.com/products/distribution#windows)**  
 - **[pgAdmin Download](https://www.pgadmin.org/download/)**  
 - **[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)**  
 - **[GitHub](https://github.com/)**  
