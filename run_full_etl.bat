@@ -52,6 +52,7 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b 1
 )
 
+
 :: Capture end time
 for /f %%b in ('powershell -command "[int](Get-Date).ToUniversalTime().Subtract([datetime]'1970-01-01').TotalSeconds"') do set END=%%b
 
