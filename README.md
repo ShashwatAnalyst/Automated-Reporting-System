@@ -179,7 +179,7 @@ SQL-Data-Warehouse-Project/
 │   ├── 02_silver/             
 │   └── 03_gold/               
 │
-├── Automated Reports/                   # Automated output reports
+├── automated_reports/                   # Automated output reports
 │   ├── Customer_Report.csv
 │   ├── Product_Report.csv
 │   ├── Analytics_&_Report.ipynb
