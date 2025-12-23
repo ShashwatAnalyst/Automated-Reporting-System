@@ -240,7 +240,7 @@ FROM order_value_table ov
 JOIN amazon_brazil.payments p ON ov.order_id = p.order_id
 WHERE p.payment_type <> 'not_defined'
 GROUP BY order_value_segment,p.payment_type
-ORDER BY order_value_segment,count DESC;
+ORDER BY count DESC;
 /*
 ========================================================================================
 	2. Amazon India wants to analyse the price range and average price for 
@@ -267,7 +267,7 @@ ORDER BY avg_price DESC;
 
 SELECT 
 	c.customer_unique_id,
-	COUNT(*) AS total_orders
+	COUNT(DISTINCT o.order_id) AS total_orders
 FROM amazon_brazil.customers c
 JOIN amazon_brazil.orders o
 	ON o.customer_id = c.customer_id
@@ -276,33 +276,30 @@ HAVING COUNT(*) > 1
 ORDER BY total_orders DESC;
 /*
 ========================================================================================
-
 	4. Amazon India wants to categorize customers into different types 
 	   ('New – order qty. = 1' ;  'Returning' –order qty. 2 to 4;  'Loyal' – order qty. >4) 
 	   based on their purchase history. Use a temporary table to define these categories and 
 	   join it with the customers table to update and display the customer types.*/
 
-CREATE TEMP TABLE customer_type (
-customer_unique_id VARCHAR(100),
-customer_type 	   VARCHAR(50)
-)
-
-INSERT INTO #amazon_brazil.customer_type (
-customer_unique_id,
-customer_type 
-)
-
+CREATE TEMP TABLE customer_type AS
 SELECT 
-	customer_unique_id,
+	customer_id,
 	CASE WHEN total_orders = 1 THEN 'New'
 		 WHEN total_orders BETWEEN 2 AND 4 THEN 'Returning'
 		 ELSE 'Loyal'
 	END AS customer_type
 FROM(
+	SELECT 
+	customer_id,
+	COUNT(DISTINCT order_id) AS total_orders
+FROM amazon_brazil.orders
+GROUP BY customer_id
+) t;
+
 SELECT 
-	customer_unique_id,
-	COUNT(*) AS total_orders
-FROM amazon_brazil.customers
-GROUP BY customer_unique_id
-)
+    c.customer_unique_id,
+    ct.customer_type
+FROM amazon_brazil.customers c
+JOIN customer_type ct
+    ON c.customer_id = ct.customer_id;
 
