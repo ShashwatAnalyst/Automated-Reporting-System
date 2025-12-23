@@ -1,467 +1,166 @@
-/*
-DDL Script: Create Tables
+-- ========================================================
+--  Silver Layer Loading Script (Transform and Reload)
+-- --------------------------------------------------------
+-- Purpose:
+-- This script extracts data from the Bronze Layer,
+-- applies data cleaning, standardization, and business
+-- logic transformations, and loads it into the Silver Layer
+-- of the PostgreSQL data warehouse.
+-- It uses a truncate-and-insert strategy to ensure that each
+-- run provides a fresh and consistent snapshot of cleaned data.
+-- Ideal for building a structured base for analytics and BI.
+-- =========================================================
 
-Script Purpose:
-============================================================================
-	1. Creates 'amazon_brazil' schema if it does not exist.
-    2. Creates tables in 'amazon_brazil' schema if not already exists.
-============================================================================
-*/
-
-CREATE SCHEMA IF NOT EXISTS amazon_brazil;
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.customers (
-    customer_id                   VARCHAR(100) PRIMARY KEY,
-    customer_unique_id            VARCHAR(100),
-    customer_zip_code_prefix      INT
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.orders (
-    order_id      			 		VARCHAR(100) PRIMARY KEY,
-    customer_id       				VARCHAR(100),
-    order_status     				VARCHAR(50),
-    order_purchase_timestamp 		TIMESTAMP,
-    order_approved_at   			TIMESTAMP,
-	order_delivered_carrier_date 	TIMESTAMP,
-	order_delivered_customer_date 	TIMESTAMP,
-	order_estimated_delivery_date 	TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.payments (
-    order_id  				VARCHAR(100),
-    payment_sequential 		INT,
-    payment_type  			VARCHAR(50),
-    payment_installments 	INT,
-    payment_value  			NUMERIC
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.sellers (
-    seller_id   			VARCHAR(100) PRIMARY KEY,
-    seller_zip_code_prefix 	INT
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.order_items (
-    order_id   			VARCHAR(100),
-    order_item_id 		INT,
-	product_id 			VARCHAR(100),
-	seller_id  			VARCHAR(100),
-	shipping_limit_date TIMESTAMP,
-	price 				NUMERIC,
-	freight_value 		NUMERIC
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.products (
-    product_id           		VARCHAR(100) PRIMARY KEY,
-    product_category_name       VARCHAR(100),
-    product_name_lenght       	INT,
-    product_description_lenght  INT,
-	product_photos_qty 			INT,
-	product_weight_g 			INT,
-	product_length_cm		 	INT,
-	product_height_cm 			INT,
-	product_width_cm 			INT
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.sellers (
-    seller_id   			VARCHAR(100) PRIMARY KEY,
-    seller_zip_code_prefix 	INT
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.order_items (
-    order_id   			VARCHAR(100),
-    order_item_id 		INT,
-	product_id 			VARCHAR(100),
-	seller_id  			VARCHAR(100),
-	shipping_limit_date TIMESTAMP,
-	price 				NUMERIC,
-	freight_value 		NUMERIC
-);
-
-CREATE TABLE IF NOT EXISTS amazon_brazil.products (
-    product_id           		VARCHAR(100) PRIMARY KEY,
-    product_category_name       VARCHAR(100),
-    product_name_lenght       	INT,
-    product_description_lenght  INT,
-	product_photos_qty 			INT,
-	product_weight_g 			INT,
-	product_length_cm		 	INT,
-	product_height_cm 			INT,
-	product_width_cm 			INT
-);
-/*
-========================================================================================
-DQL Script: Analysis - I
-
-Script Purpose:
-========================================================================================
-	1. To simplify its financial reports, Amazon India needs to standardize 
-	   payment values. Display the average payment values for each payment_type.
-	   Round the average payment values to integer (no decimal) and display the 
-	   results sorted in ascending order. 
-*/
-
-SELECT 
-	payment_type,
-	ROUND(AVG(payment_value),0) AS rounded_avg_payment
-FROM amazon_brazil.payments
-WHERE payment_type <> 'not_defined'
-GROUP BY payment_type
-ORDER BY rounded_avg_payment ASC;
-/*
-========================================================================================
-	2. To refine its payment strategy, Amazon India wants to know the 
-	   distribution of orders by payment type. Calculate the percentage 
-	   of total orders for each payment type, rounded to one decimal place, 
-	   and display them in descending order
-*/
-
-SELECT payment_type,
-       ROUND(COUNT(DISTINCT o.order_id)*100.0/
-       (SELECT COUNT(DISTINCT o.order_id)
-        FROM amazon_brazil.payments p 
-		JOIN amazon_brazil.orders o 
-			ON p.order_id = o.order_id
-        WHERE p.payment_type <> 'not_defined'),1) AS percentage_orders
-FROM amazon_brazil.payments p 
-JOIN amazon_brazil.orders o 
-	ON p.order_id = o.order_id
-WHERE p.payment_type <> 'not_defined'
-GROUP BY p.payment_type
-ORDER BY percentage_orders DESC;
-/*
-========================================================================================
-	3. Amazon India seeks to create targeted promotions for products within
-	   specific price ranges. Identify all products priced between 100 and 
-	   500 BRL that contain the word 'Smart' in their name. 
-	   Display these products, sorted by price in descending order.
-*/
-
-SELECT 
-	oi.product_id,
-	MAX(oi.price) AS price
-FROM amazon_brazil.order_items oi 
-JOIN amazon_brazil.products p 
-	ON oi.product_id = p.product_id
-WHERE p.product_category_name ILIKE '%Smart%'
-	AND oi.price BETWEEN 100 AND 500
-GROUP BY oi.product_id
-ORDER BY price DESC;
-/*
-========================================================================================
-	4. To identify seasonal sales patterns, Amazon India needs to focus on
-	   the most successful months. Determine the top 3 months with the 
-	   highest total sales value, rounded to the nearest integer.
-*/
-
-SELECT 
-	TO_CHAR(order_purchase_timestamp,'Month') AS month,
-	ROUND(SUM(oi.price + oi.freight_value),0) AS total_sales
-FROM amazon_brazil.orders o 
-JOIN amazon_brazil.order_items oi
-	ON oi.order_id = o.order_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY month
-ORDER BY total_sales DESC
-LIMIT 3;
-
-/*
-========================================================================================
-	5. Amazon India is interested in product categories with significant 
-	   price variations. Find categories where the difference between 
-	   the maximum and minimum product prices is greater than 500 BRL.	   
-*/
-
-SELECT 
-	p.product_category_name,
-	MAX(oi.price)-MIN(oi.price) AS price_difference
-FROM amazon_brazil.order_items oi 
-JOIN amazon_brazil.products p 
-	ON oi.product_id = p.product_id
-WHERE p.product_category_name IS NOT NULL
-GROUP BY p.product_category_name
-HAVING MAX(oi.price) - MIN(oi.price) > 500
-ORDER BY price_difference DESC;
-/*
-========================================================================================
-	6. To enhance the customer experience, Amazon India wants to find which
-	   payment types have the most consistent transaction amounts. Identify 
-	   the payment types with the least variance in transaction amounts, 
-	   sorting by the smallest standard deviation first.   
-*/
-
-SELECT 
-	payment_type,
-	ROUND(STDDEV(payment_value),2) AS std_deviation
-FROM amazon_brazil.payments
-WHERE payment_type <> 'not_defined'
-GROUP BY payment_type
-ORDER BY std_deviation ASC;
-/*
-========================================================================================
-	7. Amazon India wants to identify products that may have incomplete 
-	   name in order to fix it from their end. Retrieve the list of products 
-	   where the product category name is missing or contains only a single
-	   character.  
-*/
-
-SELECT 
-	product_id, 
-	product_category_name
-FROM amazon_brazil.products
-WHERE product_category_name IS NULL
-OR LENGTH(TRIM(product_category_name)) = 1
-ORDER BY product_category_name;
-/*
-========================================================================================
-DQL Script: Analysis - II
-
-Script Purpose:
-========================================================================================
-	1. Amazon India wants to understand which payment types are most popular across 
-	   different order value segments (e.g., low, medium, high). Segment order values 
-	   into three ranges: orders less than 200 BRL, between 200 and 1000 BRL, and 
-	   over 1000 BRL. Calculate the count of each payment type within these ranges 
-	   and display the results in descending order of count.*/
-	   
-WITH order_value_table AS (
-SELECT order_id ,SUM(price + freight_value) AS order_value
-FROM amazon_brazil.order_items
-GROUP BY order_id
+TRUNCATE TABLE silver.crm_cust_info;
+INSERT INTO silver.crm_cust_info (
+	cst_id,
+    cst_key,
+    cst_firstname,
+    cst_lastname,
+    cst_marital_status,
+    cst_gndr,
+    cst_create_date
 )
 
-SELECT 	
-	CASE WHEN ov.order_value < 200 THEN 'low'
-		 WHEN ov.order_value BETWEEN 200 AND 1000 THEN 'medium'
-		 ELSE 'high'
-		 END AS order_value_segment,
-	p.payment_type,
-	COUNT(DISTINCT ov.order_id) AS count
-FROM order_value_table ov
-JOIN amazon_brazil.payments p 
-	ON ov.order_id = p.order_id
-WHERE p.payment_type <> 'not_defined'
-GROUP BY order_value_segment,p.payment_type
-ORDER BY count DESC;
-/*
-========================================================================================
-	2. Amazon India wants to analyse the price range and average price for 
-	   each product category. Calculate the minimum, maximum, and average 
-	   price for each category, and list them in descending order by the 
-	   average price.*/
-	   
-SELECT 
-	p.product_category_name,
-	MIN(oi.price) AS min_price,
-	MAX(oi.price) AS max_price,
-	ROUND(AVG(oi.price),2) AS avg_price
-FROM amazon_brazil.order_items oi
-JOIN amazon_brazil.products p 
-	ON oi.product_id = p.product_id
-GROUP BY p.product_category_name
-ORDER BY avg_price DESC;
-/*
-========================================================================================
-	3. Amazon India wants to identify the customers who have placed multiple 
-	   orders over time. Find all customers with more than one order, and 
-	   display their customer unique IDs along with the total number of 
-	   orders they have placed.*/
+SELECT  cst_id,
+    cst_key,
+    TRIM(cst_firstname) AS cst_firstname,
+    TRIM(cst_lastname) AS cst_lastname,
+    CASE WHEN UPPER(TRIM(cst_marital_status)) = 'M' THEN 'Married'
+		 WHEN UPPER(TRIM(cst_marital_status)) = 'S' THEN 'Single'
+		 ELSE 'Unknown'
+		 END AS cst_marital_status,
+	CASE WHEN UPPER(TRIM(cst_gndr)) = 'M' THEN 'Male'
+		 WHEN UPPER(TRIM(cst_gndr)) = 'F' THEN 'Female'
+		 ELSE 'Unknown'
+    	 END AS cst_gndr,
+    cst_create_date
+FROM 
+(SELECT *,MAX(cst_create_date)OVER(PARTITION BY cst_id) AS latest_cst_create_date
+FROM bronze.crm_cust_info)
+WHERE cst_create_date = latest_cst_create_date;
 
-SELECT 
-	c.customer_unique_id,
-	COUNT(DISTINCT o.order_id) AS total_orders
-FROM amazon_brazil.customers c
-JOIN amazon_brazil.orders o
-	ON o.customer_id = c.customer_id
-GROUP BY c.customer_unique_id
-HAVING COUNT(*) > 1
-ORDER BY total_orders DESC;
-/*
-========================================================================================
-	4. Amazon India wants to categorize customers into different types 
-	   ('New – order qty. = 1' ;  'Returning' –order qty. 2 to 4;  'Loyal' – order qty. >4) 
-	   based on their purchase history. Use a temporary table to define these categories and 
-	   join it with the customers table to update and display the customer types.*/
-	   
-CREATE TEMP TABLE customer_type AS
-SELECT 
-	customer_id,
-	CASE WHEN total_orders = 1 THEN 'New'
-		 WHEN total_orders BETWEEN 2 AND 4 THEN 'Returning'
-		 ELSE 'Loyal'
-	END AS customer_type
-FROM(
-	SELECT 
-	customer_id,
-	COUNT(DISTINCT order_id) AS total_orders
-FROM amazon_brazil.orders
-GROUP BY customer_id
-) t;
+--===================================================================================
 
-SELECT 
-    c.customer_unique_id,
-    ct.customer_type
-FROM amazon_brazil.customers c
-JOIN customer_type ct
-    ON c.customer_id = ct.customer_id;
-/*
-========================================================================================
-	5. Amazon India wants to know which product categories generate the most revenue.
-	   Use joins between the tables to calculate the total revenue for each product 
-	   category. Display the top 5 categories.
-*/
-	   
-SELECT 
-	p.product_category_name,
-	ROUND(SUM(oi.price + oi.freight_value),0) AS total_revenue
-FROM amazon_brazil.orders o 
-JOIN amazon_brazil.order_items oi
-	ON o.order_id = oi.order_id
-JOIN amazon_brazil.products p
-	ON oi.product_id = p.product_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY p.product_category_name
-ORDER BY total_revenue DESC
-LIMIT 5;
-/*
-========================================================================================
-DQL Script: Analysis - III
-
-Script Purpose:
-========================================================================================
-	1. The marketing team wants to compare the total sales between different seasons. 
-	   Use a subquery to calculate total sales for each season 
-	   (Spring, Summer, Autumn, Winter) based on order purchase dates, 
-	   and display the results. Spring is in the months of March, April and May. 
-	   Summer is from June to August and Autumn is between September and November and 
-	   rest months are Winter.
-*/
-
-SELECT 
-	CASE WHEN DATE_PART('month',order_purchase_timestamp) IN (3,4,5) THEN 'Spring'
-		 WHEN DATE_PART('month',order_purchase_timestamp) IN (6,7,8) THEN 'Summer'
-		 WHEN DATE_PART('month',order_purchase_timestamp) IN (9,10,11) THEN 'Autumn'
-		 ELSE 'Winter'
-		 END AS season,
-	ROUND(SUM(oi.price + oi.freight_value),0) AS total_sales
-FROM amazon_brazil.orders o 
-JOIN amazon_brazil.order_items oi
-	ON o.order_id = oi.order_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY season
-ORDER BY total_sales DESC
-/*
-========================================================================================
-	2 . The inventory team is interested in identifying products that have sales 
-	    volumes above the overall average. Write a query that uses a subquery to 
-		filter products with a total quantity sold above the average quantity.
-*/
-
-WITH quantity_sold AS (
-SELECT 
-	p.product_id,
-	COUNT(*) AS total_quantity_sold
-FROM amazon_brazil.orders o 
-JOIN amazon_brazil.order_items oi
-	ON o.order_id = oi.order_id
-JOIN amazon_brazil.products p
-	ON oi.product_id = p.product_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY p.product_id
+TRUNCATE TABLE silver.crm_prd_info;
+INSERT INTO silver.crm_prd_info (
+	prd_id,
+	cat_id,
+    prd_key,
+    prd_nm,
+    prd_cost,
+    prd_line,
+    prd_start_dt,
+    prd_end_dt   
 )
-SELECT 
-	product_id,
-	total_quantity_sold
-FROM quantity_sold
-WHERE total_quantity_sold > (
-SELECT 
-	AVG(total_quantity_sold) AS avg_total_quantity_sold
-FROM quantity_sold
+SELECT prd_id,
+	REPLACE(SUBSTRING(prd_key,1,5),'-','_') AS cat_id,
+	SUBSTRING(prd_key,7,LENGTH(prd_key)) AS prd_key,
+    prd_nm,
+    COALESCE(prd_cost,0) AS prd_cost,
+    CASE WHEN UPPER(TRIM(prd_line)) = 'R' THEN 'Road'
+	 	 WHEN UPPER(TRIM(prd_line)) = 'M' THEN 'Mountain'
+		 WHEN UPPER(TRIM(prd_line)) = 'S' THEN 'Other Sales'
+		 WHEN UPPER(TRIM(prd_line)) = 'T' THEN 'Touring'
+		 ELSE 'Unknown'
+		 END AS prd_line,
+    prd_start_dt,
+    LEAD(prd_start_dt)OVER(PARTITION BY prd_key ORDER BY prd_start_dt)-1 as prd_end_dt
+FROM bronze.crm_prd_info;
+
+--=======================================================================================
+
+TRUNCATE TABLE silver.crm_sales_details;
+INSERT INTO silver.crm_sales_details (
+	sls_ord_num,
+    sls_prd_key,
+    sls_cust_id,
+    sls_order_dt,
+    sls_ship_dt,
+    sls_due_dt,
+    sls_sales,
+    sls_quantity,
+    sls_price  
 )
-/*
-========================================================================================
-	3 . To understand seasonal sales patterns, the finance team is analysing 
-		the monthly revenue trends over the past year (year 2018). Run a query to
-		calculate total revenue generated each month and identify periods of peak 
-		and low sales. Export the data to Excel and create a graph to visually 
-		represent revenue changes across the months. 
-*/
+SELECT sls_ord_num,
+    sls_prd_key,
+    sls_cust_id,
+	CASE WHEN sls_order_dt = 0 OR LENGTH(sls_order_dt::text) <> 8 THEN NULL
+	     ELSE TO_DATE(sls_order_dt::text, 'YYYYMMDD')
+    	 END AS sls_order_dt,
+		 
+		 CASE WHEN sls_ship_dt = 0 OR LENGTH(sls_ship_dt::text) <> 8 THEN NULL
+		 	  ELSE TO_DATE(sls_ship_dt::text, 'YYYYMMDD')
+    	 	  END AS sls_ship_dt,
+		 
+		 CASE WHEN sls_due_dt = 0 OR LENGTH(sls_due_dt::text) <> 8 THEN NULL
+		 	  ELSE TO_DATE(sls_due_dt::text, 'YYYYMMDD')
+   		 	  END AS sls_due_dt,
+			
+   		 CASE WHEN sls_sales IS NULL OR sls_sales <= 0 OR sls_sales != sls_quantity * ABS(sls_price)
+		 	  THEN sls_quantity * ABS(sls_price)
+		 	  ELSE sls_sales
+		 	  END sls_sales,
+		 
+    sls_quantity,
+	
+		 CASE WHEN sls_price IS NULL OR sls_price <= 0 
+		 	  THEN ABS(sls_price) / NULLIF(sls_quantity,0) 
+		 	  ELSE sls_price
+		 	  END sls_price
+	
+FROM bronze.crm_sales_details;
 
-SELECT 
-    TO_CHAR(month, 'Mon YYYY') AS month,
-    total_revenue
-FROM (
-    SELECT 
-        DATE_TRUNC('month', o.order_purchase_timestamp) AS month,
-        ROUND(SUM(oi.price + oi.freight_value), 0) AS total_revenue
-    FROM amazon_brazil.orders o
-    JOIN amazon_brazil.order_items oi
-        ON oi.order_id = o.order_id
-    WHERE o.order_status NOT IN ('canceled', 'unavailable')
-      AND DATE_PART('year', o.order_purchase_timestamp) = 2018
-    GROUP BY DATE_TRUNC('month', o.order_purchase_timestamp)
-	ORDER BY month
-) t
-/*
-========================================================================================
-	4 . A loyalty program is being designed  for Amazon India. Create a 
-		segmentation based on purchase frequency: ‘Occasional’ for customers
-		with 1-2 orders, ‘Regular’ for 3-5 orders, and ‘Loyal’ for more than
-		5 orders. Use a CTE to classify customers and their count and generate
-		a chart in Excel to show the proportion of each segment.
-*/
-WITH CTE AS (
-SELECT 
-	customer_id,
-	CASE WHEN total_orders <= 2 THEN 'Occasional'
-		 WHEN total_orders BETWEEN 3 AND 5 THEN 'Regular'
-		 ELSE 'Loyal'
-	END AS customer_type
-FROM(
-	SELECT 
-	customer_id,
-	COUNT(DISTINCT order_id) AS total_orders
-FROM amazon_brazil.orders
-GROUP BY customer_id
-) t
+--=======================================================================================
+
+TRUNCATE TABLE silver.erp_cust_az12;
+INSERT INTO silver.erp_cust_az12 (
+    cid,
+    bdate,
+    gen
 )
-SELECT 
-	customer_type,
-	COUNT(*) AS count
-FROM CTE
-GROUP BY customer_type
 
-/*
-========================================================================================
-	5 . Amazon wants to identify high-value customers to target for 
-	an exclusive rewards program. You are required to rank customers 
-	based on their average order value (avg_order_value) to find the
-	top 20 customers.
-*/
+SELECT CASE WHEN cid LIKE 'NAS%' THEN SUBSTRING(cid,4,LENGTH(cid))
+	   	    ELSE cid
+	  	    END AS cid,
+ 	   CASE WHEN bdate > CURRENT_DATE THEN NULL
+	   		ELSE bdate
+	   		END AS bdate,
+ 	   CASE WHEN UPPER(TRIM(gen)) IN ('M','MALE') THEN 'Male'
+	   		WHEN UPPER(TRIM(gen)) IN ('F','FEMALE') THEN 'Female'
+	   		ELSE 'Unknown'
+       		END AS gen
+FROM bronze.erp_cust_az12;
 
+--=======================================================================================
 
-SELECT 
-	o.customer_id ,
-	ROUND(AVG(oi.price + oi.freight_value),2) AS avg_order_value,
-	RANK()OVER(ORDER BY AVG(oi.price + oi.freight_value) DESC) AS customer_rank
-FROM amazon_brazil.order_items oi
-JOIN amazon_brazil.orders o 
-	ON oi.order_id = o.order_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY o.customer_id
-ORDER BY customer_rank
-LIMIT 20;
+TRUNCATE TABLE silver.erp_loc_a101;
+INSERT INTO silver.erp_loc_a101 (
+    cid,
+    cntry
+)
+SELECT REPLACE(cid,'-',''),
+CASE WHEN TRIM(cntry) = 'DE' THEN 'Germany'
+     WHEN TRIM(cntry) IN ('US','USA') THEN 'United States'
+	 WHEN TRIM(cntry) = '' OR cntry IS NULL THEN 'Unknown'
+	 ELSE TRIM(cntry)
+	 END AS cntry
+FROM bronze.erp_loc_a101;
 
-/*
-========================================================================================
-	6 . Amazon wants to analyze sales growth trends for its key products
-		over their lifecycle. Calculate monthly cumulative sales for each 
-		product from the date of its first sale. Use a recursive CTE to 
-		compute the cumulative sales (total_sales) for each product month 
-		by month.
+--=======================================================================================
 
-    Output: product_id, sale_month, and total_sales
-*/
-
+TRUNCATE TABLE silver.erp_px_cat_g1v2;
+INSERT INTO silver.erp_px_cat_g1v2 (
+    id,
+    cat,
+    subcat,
+    maintenance
+)
+SELECT id,
+cat,
+subcat,
+maintenance
+FROM bronze.erp_px_cat_g1v2;
 
 
 
