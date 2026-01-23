@@ -1,6 +1,7 @@
 # ETL Data Warehouse Project
 
-This project showcases a fully **automated data warehouse and analytics workflow**. The warehouse is built with **SQL**, while **Python, Pandas, Matplotlib, and Seaborn** are used for reporting and visualizations. The entire **ETL process is executed in one click via batch file processing**, generating CSV reports and updated PDF of notebook. It demonstrates practical **data engineering, automation, and analytics skills** in a hands-on portfolio project.
+Welcome to the **Data Warehouse and Analytics Project** repository! 🚀  
+This project demonstrates a comprehensive data warehousing and analytics solution, from building a data warehouse to generating actionable insights. Designed as a portfolio project, it highlights industry best practices in data engineering and analytics.
 
 
 ---
@@ -66,30 +67,13 @@ Silver Layer Transformation Completed Successfully.
 CREATE VIEW ...
 Gold Layer views created successfully.
 
-[4/4] Generating Reports...
-Customer_Report.csv generated successfully.
-Product_Report.csv generated successfully.
-Notebook_Report.ipynb updated successfully.
-
 ========================================================
  Full ETL & Reporting Process Completed Successfully
  Total Time Taken: 35 seconds
 ========================================================
 Press any key to continue . . .
 ```
-With this, your data warehouse and analytics reports are fully refreshed and ready for stakeholders. ✅
-
----
-## 📄 Reports
-
-After running the ETL pipeline, the project automatically generates the following reports:
-
-- **Customer_Report.csv** – Customer analytics and metrics  
-- **Product_Report.csv** – Product performance insights  
-- **Analytics_&_Report.ipynb** – Complete visual report with charts and tables  
-- **report.pdf** - Clean PDF version of **Analytics_&_Report.ipynb** notebook file
-
-You can also access the **final report as a PDF** here: [Final Report Notebook PDF](./automated_reports/report.pdf)
+With this, your data warehouse is fully refreshed and ready for further analysis. ✅
 
 
 ---
@@ -101,7 +85,6 @@ Key components of this project:
 1. **Layered Data Architecture**: Modern data warehouse design using Bronze, Silver, and Gold layers.
 2. **ETL Pipelines**: Automated extraction, transformation, and loading of data from source files.
 3. **Data Modeling**: Creation of fact and dimension tables for efficient analytical queries.
-4. **Analytics & Reporting**: Generates customer and product CSV reports and updates Jupyter notebooks and generate pdf report automatically.
 
 🎯 This repository is ideal for those looking to demonstrate skills in:
 - SQL Development
@@ -109,20 +92,15 @@ Key components of this project:
 - Data Engineering  
 - ETL Pipeline Development  
 - Data Modeling  
-- Data Analytics & Reporting
 
 ---
 
 ## 🛠️ Useful Resources & Tools
 
 - **[datasets/](./datasets/)**  
-- **[Anaconda Download](https://www.anaconda.com/products/distribution#windows)**  
 - **[pgAdmin Download](https://www.pgadmin.org/download/)**  
 - **[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)**  
-- **[GitHub](https://github.com/)**  
 - **[Draw.io](https://www.draw.io/)**
-
-
 
 ---
 
@@ -142,18 +120,6 @@ Build a modern data warehouse that consolidates sales data for analytics and rep
 
 ---
 
-### 📈 Analytics & Reporting
-
-**Goal:**  
-Develop automated analytics and visual reports using **Python, Pandas, Matplotlib, and Seaborn** to deliver actionable insights on:  
-- Customer behavior and segmentation  
-- Product performance and trends  
-- Sales patterns and time-based analysis  
-
-**Automation:**  
-Reports are generated automatically as **CSV files** and **notebooks with visualizations**, enabling easy review and decision-making.
-
----
 
 ## 📂 Repository Structure
 
@@ -179,12 +145,6 @@ SQL-Data-Warehouse-Project/
 │   ├── 02_silver/             
 │   └── 03_gold/               
 │
-├── automated_reports/                   # Automated output reports
-│   ├── Customer_Report.csv
-│   ├── Product_Report.csv
-│   ├── Analytics_&_Report.ipynb
-│   └── Report.html
-│
 ├── tests/                     # Data quality and validation scripts
 ├── run_full_etl.bat           # Batch file to run the full ETL pipeline and reporting
 ├── README.md                  
@@ -206,12 +166,9 @@ Hi, I'm **Shashwat Singh**. I'm a passionate **Data Analyst** with a **B.Tech** 
 
 Let's stay in touch! Feel free to connect with me :
 
-
-[![ Portfolio](https://img.shields.io/badge/-Portfolio-800000?style=for-the-badge&logo=globe&logoColor=white)](https://www.shashwatanalyst.online/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shashwat-singh-bb2730357/)
 [![X](https://img.shields.io/badge/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/ShashwatSi48402)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=LeetCode&logoColor=black)](https://leetcode.com/u/fclDlbfku9/)
-[![HackerRank](https://img.shields.io/badge/Hackerrank-2EC866?style=for-the-badge&logo=HackerRank&logoColor=white)](https://www.hackerrank.com/profile/shashwat98k)
 
 
 
