@@ -77,8 +77,9 @@ echo.
 echo Gold Layer views created successfully.
 echo.
 
-REM Capture end time
-for /f %%a in ('powershell -command "[int](Get-Date).ToUniversalTime().Subtract([datetime]''1970-01-01'').TotalSeconds"') do set END=%%a
+REM Capture end time (epoch seconds)
+for /f %%a in ('powershell -NoProfile -Command "(Get-Date).ToUniversalTime().Subtract([datetime]''1970-01-01'').TotalSeconds -as [int]"') do set END=%%a
+
 set /a DURATION=END-START
 
 echo ========================================================
@@ -88,5 +89,6 @@ echo ========================================================
 
 pause
 exit /b 0
+
 
 
