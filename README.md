@@ -1,4 +1,4 @@
-# Data Warehouse & Report Automation Project
+# ETL Data Warehouse Project
 
 This project showcases a fully **automated data warehouse and analytics workflow**. The warehouse is built with **SQL**, while **Python, Pandas, Matplotlib, and Seaborn** are used for reporting and visualizations. The entire **ETL process is executed in one click via batch file processing**, generating CSV reports and updated PDF of notebook. It demonstrates practical **data engineering, automation, and analytics skills** in a hands-on portfolio project.
 
