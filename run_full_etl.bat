@@ -77,10 +77,11 @@ echo.
 echo Gold Layer views created successfully.
 echo.
 
-REM Capture end time (epoch seconds)
-for /f %%a in ('powershell -NoProfile -Command "(Get-Date).ToUniversalTime().Subtract([datetime]''1970-01-01'').TotalSeconds -as [int]"') do set END=%%a
+REM Capture end time in milliseconds
+for /f %%a in ('powershell -NoProfile -Command "(Get-Date).ToUniversalTime().Ticks"') do set END_TICKS=%%a
 
-set /a DURATION=END-START
+REM Convert ticks to seconds (10,000,000 ticks = 1 second)
+set /a DURATION=(END_TICKS-START_TICKS)/10000000
 
 echo ========================================================
 echo  Full ETL Process Completed Successfully
@@ -89,6 +90,7 @@ echo ========================================================
 
 pause
 exit /b 0
+
 
 
 
