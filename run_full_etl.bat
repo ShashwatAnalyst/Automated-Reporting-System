@@ -2,88 +2,91 @@
 setlocal EnableExtensions EnableDelayedExpansion
 
 REM ============================================================
-REM  Data Warehouse ETL Orchestrator
-REM  Runs Bronze -> Silver -> Gold load processes in sequence
+REM  Full ETL Orchestrator (Bronze -> Silver -> Gold)
 REM ============================================================
 
 REM Set working directory
 cd /d "C:\Users\fusio\Desktop\Data_warehouse_project\SQL-Data-Warehouse-Project" || (
-    echo [ERROR] Failed to change working directory.
+    echo ========================================================
+    echo  ERROR: Failed to set working directory
+    echo ========================================================
+    pause
     exit /b 1
 )
 
 REM Capture start time (Unix epoch seconds)
 for /f %%a in ('powershell -command "[int](Get-Date).ToUniversalTime().Subtract([datetime]''1970-01-01'').TotalSeconds"') do set START=%%a
 
+
+echo ========================================================
+echo  Starting Full ETL Process...
+echo ========================================================
 echo.
-echo ============================================================
-echo  DATA WAREHOUSE ETL PIPELINE - START
-echo  Date: %DATE%   Time: %TIME%
-echo ============================================================
 
 REM ------------------------------
-REM STEP 1: Bronze Layer
+REM [1/3] Bronze Layer
 REM ------------------------------
-call :RunStep 1 "BRONZE LAYER" "Raw Data Ingestion" "scripts\01_bronze\load_to_bronze.bat" || exit /b 1
+echo [1/3]  Loading Bronze Layer...
+call "scripts\01_bronze\load_to_bronze.bat"
+if errorlevel 1 (
+    echo.
+    echo Bronze Layer FAILED.
+    echo ========================================================
+    echo  ETL Process Terminated With Errors
+    echo ========================================================
+    pause
+    exit /b 1
+)
+echo.
+echo Load completed successfully.
+echo.
 
 REM ------------------------------
-REM STEP 2: Silver Layer
+REM [2/3] Silver Layer
 REM ------------------------------
-call :RunStep 2 "SILVER LAYER" "Data Cleaning & Standardization" "scripts\02_silver\load_to_silver.bat" || exit /b 1
+echo [2/3] Loading Silver Layer...
+call "scripts\02_silver\load_to_silver.bat"
+if errorlevel 1 (
+    echo.
+    echo Silver Layer FAILED.
+    echo ========================================================
+    echo  ETL Process Terminated With Errors
+    echo ========================================================
+    pause
+    exit /b 1
+)
+echo.
+echo Silver Layer Transformation Completed Successfully.
+echo.
 
 REM ------------------------------
-REM STEP 3: Gold Layer
+REM [3/3] Gold Layer
 REM ------------------------------
-call :RunStep 3 "GOLD LAYER" "Business Logic & Analytics Ready" "scripts\03_gold\load_to_gold.bat" || exit /b 1
-
+echo [3/3] Loading Gold Layer...
+call "scripts\03_gold\load_to_gold.bat"
+if errorlevel 1 (
+    echo.
+    echo Gold Layer FAILED.
+    echo ========================================================
+    echo  ETL Process Terminated With Errors
+    echo ========================================================
+    pause
+    exit /b 1
+)
+echo.
+echo Gold Layer views created successfully.
+echo.
 
 REM Capture end time
 for /f %%a in ('powershell -command "[int](Get-Date).ToUniversalTime().Subtract([datetime]''1970-01-01'').TotalSeconds"') do set END=%%a
 set /a DURATION=END-START
 
-echo.
-echo ============================================================
-echo  DATA WAREHOUSE ETL PIPELINE - SUCCESS
-echo  Completed: %DATE%   %TIME%
-echo  Total Duration: %DURATION% seconds
-echo ============================================================
-echo.
+echo ========================================================
+echo  Full ETL Process Completed Successfully
+echo  Total Time Taken: %DURATION% seconds
+echo ========================================================
 
+pause
 exit /b 0
 
-
-REM ============================================================
-REM Subroutine: RunStep
-REM Arguments:
-REM   %1 = Step Number
-REM   %2 = Layer Name
-REM   %3 = Description
-REM   %4 = Script Path
-REM ============================================================
-:RunStep
-set "STEP=%~1"
-set "LAYER=%~2"
-set "DESC=%~3"
-set "SCRIPT=%~4"
-
-echo.
-echo ------------------------------------------------------------
-echo  [%STEP%/3] %LAYER% - %DESC%
-echo ------------------------------------------------------------
-echo  Running: %SCRIPT%
-echo.
-
-call "%SCRIPT%"
-
-if errorlevel 1 (
-    echo.
-    echo [ERROR] %LAYER% failed.
-    echo [INFO ] Review logs/output for details.
-    echo.
-    pause
-    exit /b 1
-)
-
-echo [OK] %LAYER% completed successfully.
-exit /b 0
 
